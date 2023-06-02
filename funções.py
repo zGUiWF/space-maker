@@ -1,17 +1,21 @@
 import pygame
 from tkinter import Tk, simpledialog
-
-#definir tamanho da tela
-tamanho = (1000, 550)
-tela = pygame.display.set_mode(tamanho)
+import math
 
 #pedir o nome da estrela
 def solicitarNomeEstrela(posicao):
     root = Tk()
     root.withdraw()
-    nome_estrela = simpledialog.askstring("Nome da Estrela", "Digite o nome da estrela:")
+    nomeEstrela = simpledialog.askstring("Nome da Estrela", "Digite o nome da estrela:")
     root.destroy()
-    if nome_estrela is not None and nome_estrela.strip() != "":
-        return nome_estrela
+    if nomeEstrela is not None and nomeEstrela.strip() != "":
+        return nomeEstrela
     else:
         return "Desconhecido"
+
+#calcula distancia entre as marcações
+def calcularDistancia(posicao1, posicao2):
+    x1, y1 = posicao1
+    x2, y2 = posicao2
+    distancia = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+    return round(distancia, 2)

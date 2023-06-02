@@ -1,6 +1,6 @@
 import pygame
 from tkinter import Tk
-from funções import solicitarNomeEstrela
+from funções import solicitarNomeEstrela, calcularDistancia
 
 pygame.init()
 
@@ -26,9 +26,9 @@ while executando:
         elif evento.type == pygame.MOUSEBUTTONDOWN:
             if evento.button == 1:
                 posicao = pygame.mouse.get_pos()
-                nome_estrela = solicitarNomeEstrela(posicao)
-                if nome_estrela is not None:
-                    marcacao = {"nome": nome_estrela, "posicao": posicao}
+                nomeEstrela = solicitarNomeEstrela(posicao)
+                if nomeEstrela is not None:
+                    marcacao = {"nome": nomeEstrela, "posicao": posicao} #dicionario com nome e posção da estrela
                     marcacoes.append(marcacao)
 
                     #verifica se tiver apenas 1 marcação não marcar
@@ -42,13 +42,23 @@ while executando:
 
     #desenha linha entre as marcações
     for linha in linhas:
-        pygame.draw.line(tela, (255, 255, 255), linha[0], linha[1], 2)
+        posicao1, posicao2 = linha
+        pygame.draw.line(tela, (255, 255, 255), posicao1, posicao2, 2)
+
+        #escreve a distancia entre as marcações
+        meioXdaLinha = (posicao1[0] + posicao2[0]) // 2
+        meioYdaLinha = (posicao1[1] + posicao2[1]) // 2
+        distancia = calcularDistancia(posicao1, posicao2)
+        textoDistancia = (f"({distancia})")
+        fonte = pygame.font.Font(None, 20)
+        textoRenderizado = fonte.render(textoDistancia, True, (0, 255, 0))
+        tela.blit(textoRenderizado, (meioXdaLinha - textoRenderizado.get_width() // 2, meioYdaLinha - textoRenderizado.get_height() // 2))
 
     for marcacao in marcacoes:
-        nome = marcacao["nome"] #nome dado a estrela
-        posicao = marcacao["posicao"] #posição da estrela
-        pygame.draw.circle(tela, (255, 255, 255), posicao, 10) #desenha circulo marcador da estrela
-        texto = f"{nome} - Posição: {posicao}"
+        nome = marcacao["nome"]
+        posicao = marcacao["posicao"]
+        pygame.draw.circle(tela, (255, 255, 255), posicao, 10) 
+        texto = (f"{nome} {posicao}")
         fonte = pygame.font.Font(None, 20)
         textoRenderizado = fonte.render(texto, True, (255, 255, 255)) 
         tela.blit(textoRenderizado, (posicao[0] + 15, posicao[1] - 10))
