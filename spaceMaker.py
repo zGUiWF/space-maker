@@ -96,7 +96,7 @@ while executando:
     tela.blit(fundo,(0,0))
     escrverTexto('Tecle (z) para salvar as marcações',branco,5,10,20)
     escrverTexto('Tecle (x) para carregar as marcações',branco,5,30,20)
-    escrverTexto('Tecle (z) para excluir as marcações',branco,5,50,20)
+    escrverTexto('Tecle (c) para excluir as marcações',branco,5,50,20)
 
     #desenha linha entre as marcações
     for linha in linhas:

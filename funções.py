@@ -1,4 +1,3 @@
-import pygame
 from tkinter import Tk, simpledialog
 import math
 
@@ -20,26 +19,36 @@ def calcularDistancia(posicao1, posicao2):
     distancia = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
     return round(distancia, 2)
 
-# Função para salvar as marcações em um arquivo
+#função para salvar as marcações
 def salvarMarcacoes(arquivo, marcacoes):
-    with open(arquivo, "w") as f:
-        for marcacao in marcacoes:
-            nome = marcacao["nome"]
-            posicao = marcacao["posicao"]
-            linha = f"{nome},{posicao[0]},{posicao[1]}\n"
-            f.write(linha)
+    try:
+        with open(arquivo, "w") as f:
+            for marcacao in marcacoes:
+                nome = marcacao["nome"]
+                posicao = marcacao["posicao"]
+                linha = f"{nome},{posicao[0]},{posicao[1]}\n"
+                f.write(linha)
+    except:
+        print('tente novamente')
 
+#função para carregar as marcações
 def carregarMarcacoes(arquivo):
-    marcacoes = []
-    with open(arquivo, "r") as f:
-        for linha in f:
-            nome, x, y = linha.strip().split(",")
-            posicao = (int(x), int(y))
-            marcacao = {"nome": nome, "posicao": posicao}
-            marcacoes.append(marcacao)
-    return marcacoes
+    try:
+        marcacoes = []
+        with open(arquivo, "r") as f:
+            for linha in f:
+                nome, x, y = linha.strip().split(",")
+                posicao = (int(x), int(y))
+                marcacao = {"nome": nome, "posicao": posicao}
+                marcacoes.append(marcacao)
+        return marcacoes
+    except:
+        print('tente novamente')
 
+#função para excluir as marcações salvas
 def excluirMarcacoes(arquivo):
-    with open(arquivo, "w") as f:
-        pass
-    
+    try:
+        with open(arquivo, "w") as f:
+            pass
+    except:
+        print('tente novamente')
