@@ -18,6 +18,11 @@ marcacoes = []
 #linhas entre as estrelas
 linhas = []
 
+pygame.display.set_caption("Space Marker")
+fundo = pygame.image.load("bg.jpg")
+icone = pygame.image.load("space.png")
+pygame.display.set_icon(icone)
+
 executando = True
 while executando:
     for evento in pygame.event.get():
@@ -38,7 +43,7 @@ while executando:
                         linha = (posicao1, posicao2)
                         linhas.append(linha)
     
-    tela.fill(preto)
+    tela.blit(fundo,(0,0))
 
     #desenha linha entre as marcações
     for linha in linhas:
